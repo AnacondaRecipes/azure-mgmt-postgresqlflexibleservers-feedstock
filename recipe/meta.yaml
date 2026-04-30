@@ -1,0 +1,47 @@
+{% set name = "azure-mgmt-postgresqlflexibleservers" %}
+{% set version = "3.0.0b1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
+  sha256: 568d7fbeec400205739c2a690d9093ca034500c979ba8a5cdd06e211e15b2eff
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<39]
+
+requirements:
+  host:
+    - setuptools >=77.0.3
+    - wheel
+    - python
+    - pip
+  run:
+    - python
+    - isodate >=0.6.1
+    - azure-mgmt-core >=1.6.0
+    - typing-extensions >=4.6.0
+
+test:
+  imports:
+    - azure.mgmt.postgresqlflexibleservers
+    - azure.mgmt.postgresqlflexibleservers.aio
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/Azure/azure-sdk-for-python
+  summary: Microsoft Azure Postgresqlflexibleservers Management Client Library for Python
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+  description: Microsoft Azure Postgresqlflexibleservers Management Client Library for Python
+  dev_url: https://github.com/Azure/azure-sdk-for-python
+  doc_url: https://github.com/Azure/azure-sdk-for-python
+  
